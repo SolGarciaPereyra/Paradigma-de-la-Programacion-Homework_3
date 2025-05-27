@@ -1,4 +1,4 @@
-#include "ejercicio_1_mediciones.hpp"
+#include "../Headers/ejercicio_1_mediciones.hpp"
 
 int main(){
     //Comienzo a realizar la prueba simple propuesta por la consigna:

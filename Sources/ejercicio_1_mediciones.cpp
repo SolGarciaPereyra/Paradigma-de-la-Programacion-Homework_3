@@ -1,4 +1,4 @@
-#include "ejercicio_1_mediciones.hpp"
+#include "../Headers/ejercicio_1_mediciones.hpp"
 
 //Defino los metodos de la clase abstracta "MedicionBase":
 float MedicionBase::getTiempo(){ return *tiempoMedicion;}
