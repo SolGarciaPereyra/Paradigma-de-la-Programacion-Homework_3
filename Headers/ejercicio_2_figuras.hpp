@@ -14,7 +14,7 @@ class Punto{
         float x;
         float y;
     public:
-        Punto(float x, float y); 
+        Punto(float coordenada_x, float coordenada_y); 
         void set_x(float coordenada_x);
         void set_y(float coordenada_y);
         float get_x() const;
@@ -26,30 +26,34 @@ class Punto{
 //Declaro mi clase "Circulo":
 /*Hago que "Circulo" herede de "Punto" para poder reutilizar sus atributos (los cuales 
 me van a servir para describir el centro del ciruclo) y sus metodos.*/
-class Circulo: public Punto{
+class Circulo{
     private:
+        Punto centro;
         float radio;
 
     public:
-        Circulo(float x, float y, float r);
+        Circulo(float coordenada_x, float coordenada_y, float r);
         void set_radio(float r);
         float get_radio() const;
+        Punto get_centro(); //Este metodo me va a servir para poder acceder al atributo "centro" desde fuera de la clase. 
 };
 
 //Declaro mi clase "Elipse":
 /*Hago que "Elipse" herede de "Punto" para poder reutilizar sus atributos (los cuales 
 me van a servir para describir el centro del elipse) y sus metodos.*/
-class Elipse: public Punto{
+class Elipse{
     private:
+        Punto centro;
         float semieje_mayor;
         float semieje_menor;
     
     public:
-        Elipse(float x, float y, float a, float b);
+        Elipse(float coordenada_x, float coordenada_y, float a, float b);
         void set_semieje_mayor(float a);
         void set_semieje_menor(float b);
         float get_semieje_mayor() const;
         float get_semieje_menor() const;
+        Punto get_centro();
 };
 
 //Declaro mi clase "Rectangulo":
@@ -57,9 +61,19 @@ class Elipse: public Punto{
 como "Elipse" hereda de "Punto", las coordenadas (atributos) de "Punto" pueden representar
 las coordenadas del vértice izquierdo inferior del rectangulo; el atributo "semieje_mayor"
 puede representar su ancho y "semieje_menor" su largo.*/
-class Rectangulo: public Elipse{
+class Rectangulo{
+    private:
+        Punto vertice_inferior_izquierdo; 
+        float ancho; 
+        float largo;
+
     public:
-        Rectangulo(float x, float y, float a, float b);
+        Rectangulo(float coordenada_x, float coordenada_y, float a, float b);
+        void set_ancho(float a);
+        void set_largo(float b);
+        float get_ancho() const;
+        float get_largo() const;
+        Punto get_vertice_inferior_izquierdo();
 };
 
 //Declaro mi clase "ProcesadorFigura", utilizando template specialization:
@@ -71,16 +85,7 @@ class ProcesadorFigura{
     y rectangulo).*/
     public:
         float calcular_area_figura(const T& figura){ return 0;}
-};
-
-template<>
-class ProcesadorFigura<Punto>{  //Especializo la planntilla para objetos del tipo exacto "Punto".
-    public:
-        float calcular_area_figura(const Punto& punto){
-            //Supongo que el area de un punto es 0.
-            return 0;
-        }
-};   
+}; 
 
 template<>
 class ProcesadorFigura<Circulo>{  //Especializo la plantilla para objetos del tipo exacto "Circulo".
@@ -107,7 +112,7 @@ class ProcesadorFigura<Rectangulo>{  //Especializo la plantilla para objetos del
     public:
         float calcular_area_figura(const Rectangulo& rectangulo){
             //Utilizo la formula matematica del area de un rectangulo: semieje_mayor * semieje_menor.
-            return rectangulo.get_semieje_mayor() * rectangulo.get_semieje_menor();
+            return rectangulo.get_ancho() * rectangulo.get_largo();
         }
 };
 
