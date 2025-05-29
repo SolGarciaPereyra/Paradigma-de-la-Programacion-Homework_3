@@ -5,6 +5,10 @@
 #include <iomanip>
 using namespace std;
 
+/*Aclaracion: no agrego destructores a mis clases porque no me hacen falta. Estoy tabajando con smart pointers, los cuales manejan su
+uso de memoria de forma independiente. Es decir, no necesito liberar la memoria manualmente, ya que ellos mismo lo hacen cuando se deja
+de usarlos.*/
+
 //Declaro mi interfaz "IMediciones":
 class IMediciones{
     public:
