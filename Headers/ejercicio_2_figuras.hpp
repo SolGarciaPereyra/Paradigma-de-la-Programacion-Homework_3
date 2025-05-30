@@ -24,11 +24,9 @@ class Punto{
 };
 
 //Declaro mi clase "Circulo":
-/*Hago que "Circulo" herede de "Punto" para poder reutilizar sus atributos (los cuales 
-me van a servir para describir el centro del ciruclo) y sus metodos.*/
 class Circulo{
     private:
-        Punto centro;
+        Punto centro;  //Existe una relacion de composicion entre "Circulo" y "Punto". 
         float radio;
 
     public:
@@ -39,11 +37,9 @@ class Circulo{
 };
 
 //Declaro mi clase "Elipse":
-/*Hago que "Elipse" herede de "Punto" para poder reutilizar sus atributos (los cuales 
-me van a servir para describir el centro del elipse) y sus metodos.*/
 class Elipse{
     private:
-        Punto centro;
+        Punto centro; //Existe una relacion de composicion entre "Elipse" y "Punto". 
         float semieje_mayor;
         float semieje_menor;
     
@@ -57,13 +53,9 @@ class Elipse{
 };
 
 //Declaro mi clase "Rectangulo":
-/*Hago que "Rectangulo" herede de "Elipse" para poder reutilizar sus atributos y metodos:
-como "Elipse" hereda de "Punto", las coordenadas (atributos) de "Punto" pueden representar
-las coordenadas del vértice izquierdo inferior del rectangulo; el atributo "semieje_mayor"
-puede representar su ancho y "semieje_menor" su largo.*/
 class Rectangulo{
     private:
-        Punto vertice_inferior_izquierdo; 
+        Punto vertice_inferior_izquierdo; //Existe una relacion de composicion entre "Rectangulo" y "Punto". 
         float ancho; 
         float largo;
 
@@ -80,9 +72,8 @@ class Rectangulo{
 //Primero tengo que definir "ProcesadorFigura" como una plantilla.
 template<typename T>
 class ProcesadorFigura{
-    /*Voy a usar esta para calcular el area de figuras que no conozco (con esto me refiero a que
-    estas no pertenecen a la lista de 4 figuras provista por la consigna: punto, circulo, elipse
-    y rectangulo).*/
+    /*Voy a usar esta para calcular el area de figuras que no conozco o para objetos que no son figuras (como
+    es el caso del punto).*/
     public:
         float calcular_area_figura(const T& figura){ return 0;}
 }; 
