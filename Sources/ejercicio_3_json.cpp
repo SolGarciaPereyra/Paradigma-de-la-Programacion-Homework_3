@@ -1,13 +1,29 @@
 #include "../Headers/ejercicio_3_json.hpp"
 
-//Defino los emtodos de mi clase "Clase1":
-Clase1::Clase1() = default; 
+//Defino los metodos de mi clase "Clase2":
 
-void Clase1::agregar_double(double double_a_agregar){ vector_de_doubles.push_back(double_a_agregar);}
+void Clase2::imprimir_contenido_json() const{
+    cout << "{"; //Indico el comienzo del json.
 
-void Clase1::agregar_string(string string_a_agregar){ vector_de_strings.push_back(string_a_agregar);}
+    for(auto pair = contenido_para_json.begin(); pair != contenido_para_json.end(); ++pair){
+        cout << " \"" << pair->first << "\": ";
 
-vector<double> Clase1::get_vector_de_doubles() {return vector_de_doubles;}
+        //Chequeo el tipo de dato con el que estoy trabajando, para poder imprimirlo correctamente:
+        if(auto contenido_double = dynamic_pointer_cast<Clase1<double>>(pair->second)){
+            cout << contenido_double->get_container_formateado();
+        }
+        else if(auto contenido_string = dynamic_pointer_cast<Clase1<string>>(pair->second)){
+            cout << contenido_string->get_container_formateado();
+        }
+        else{  //Por default, si no era ni double ni string, entonces es int.
+            auto contenido_int = dynamic_pointer_cast<Clase1<int>>(pair->second);
+            cout << contenido_int->get_container_formateado();
+        }
+        
+        if(next(pair) != contenido_para_json.end()){ //Si no es el ultimo elemento, agrego una coma.
+            cout << ", " << endl;
+        }
+    }
 
-vector<string> Clase1::get_vector_de_strings() {return vector_de_strings;}
-
+    cout << "\n}" << endl; //Indico el final del json.
+}
